@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>K-B-C GAME</title>
+</head>
+
+<body>
+    <script>
+        var kbc = {
+            question_list: [
+                {
+                    text: "The National Anthem was first sung in the year",
+                    options: ["1911" , "1913" , "1935" , "1936"],
+                    correct_answer: "1911",
+                    price_amount: 5000,
+                },
+                {
+                    text: "Which day is observed as the World Standards Day?",
+                    options: ["June 26", "October 14", "November 15", "December 2"],
+                    correct_answer: "October 14",
+                    price_amount: 10000,
+                },
+                {
+                    text: "The Indian National Calendar is based on",
+                    options: ["Christian era", "Saka era", "Vikram era", "Hijii era"],
+                    correct_answer: "Saka era",
+                    price_amount: 100000,
+                },
+            ],
+
+            winning_prize: function (question_list, current) {
+                var price = this.question_list[current].price_amount;
+                return price;
+            },
+            current_question_no: function (num) {
+                return num;
+            },
+            print_question: function (question_list, val) {
+                console.log(this.question_list[val].text);
+                document.write(this.question_list[val].text, "<br>");
+                console.log(this.question_list[val].options);
+                document.write(this.question_list[val].options, "<br>");
+            },
+
+            select_answer: function (real_ans, answer) {
+                if (real_ans == answer) {
+                    console.log("correct answer");
+                    document.write("correct answer", "<br>");
+                    return true;
+                } else {
+                    console.log("Wrong answer");
+                    document.write("Wrong answer", "<br>");
+                    return false;
+                }
+            },
+            main_fun: function () {
+                var final_price = 0;
+
+                for (var i = 0; i < kbc.question_list.length; i++) {
+                    var val = kbc.current_question_no(i);
+
+                    var answer = prompt(kbc.print_question(kbc.question_list, val));
+                    var bool = kbc.select_answer(
+                        kbc.question_list[i].correct_answer,
+                        answer
+                    );
+                    if (bool == true) {
+                        final_price += kbc.winning_prize(kbc.question_list, val);
+                        console.log("Prize money till now", final_price);
+                        document.write("Prize money till now", final_price, "<br>");
+
+                        if (i == kbc.question_list.length - 1) {
+                            console.log("Congratulations!!! You have won", final_price);
+                            document.write(
+                                "Congratulations!!! You have won",
+                                final_price,
+                                "<br>"
+                            );
+                        }
+                    } else {
+                        console.log("Better Luck next time ");
+                        document.write("Better Luck next time ", "<br>");
+                        break;
+                    }
+                }
+            },
+        };
+
+        console.log("KBC");
+
+        kbc.main_fun();
+    </script>
+</body>
+
+</html>
